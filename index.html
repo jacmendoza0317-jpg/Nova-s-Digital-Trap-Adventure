@@ -29,7 +29,7 @@
   <h1>Nova's Digital Trap</h1>
   <p>Note: Press <strong>F</strong> to start background music</p>
 
-  <!-- 🔊 This is the missing piece -->
+  <!-- 🔊 Audio element with correct filename -->
   <audio id="trapTrack" loop>
     <source src="nostalgic-background351782.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
@@ -37,9 +37,12 @@
 
   <script>
     document.addEventListener("keydown", function(event) {
+      console.log("Key pressed:", event.key); // Debugging line
       if (event.key.toLowerCase() === "f") {
         const audio = document.getElementById("trapTrack");
-        audio.play().catch(err => {
+        audio.play().then(() => {
+          console.log("Audio started");
+        }).catch(err => {
           console.log("Playback failed:", err);
         });
       }
