@@ -41,42 +41,92 @@
       background-color: #ff1c1c;
     }
 
-    #gameArea {
+    .scene {
       display: none;
       margin-top: 50px;
       font-size: 24px;
       color: #00ffcc;
+    }
+
+    .item {
+      margin: 20px;
+      cursor: pointer;
+      font-size: 24px;
+      color: #00ffcc;
+    }
+
+    #dialogue {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
   <h1>Nova's Digital Trap</h1>
 
+  <!-- Main Menu -->
   <div class="menu">
     <button id="playButton">Play</button>
     <button id="settingsButton">Settings</button>
     <button id="creditsButton">Credits</button>
   </div>
 
-  <div id="gameArea">
-    <p>🎮 Game is now starting... (placeholder)</p>
-    <!-- You’ll build your gameplay here -->
+  <!-- Game Area -->
+  <div id="gameArea" class="scene">
+    <!-- Scene 1: Nova's Room -->
+    <div id="scene1">
+      <h2>Nova's Room</h2>
+      <p>Click to pack your items:</p>
+      <div class="item" onclick="packItem('phone')">📱 Phone</div>
+      <div class="item" onclick="packItem('notebook')">📓 Notebook</div>
+      <div class="item" onclick="packItem('hoodie')">🧥 Hoodie</div>
+      <div class="item" onclick="packItem('earbuds')">🎧 Earbuds</div>
+      <div id="dialogue"></div>
+    </div>
+
+    <!-- Scene 2: Bus Ride -->
+    <div id="scene2" style="display: none;">
+      <h2>School Bus</h2>
+      <p><strong>Teacher:</strong> Alright class, listen up! We’re heading to EchoNova Systems for today’s field trip.</p>
+      <p><strong>Nova (thinking):</strong> EchoNova? Never heard of it. Sounds sketchy.</p>
+      <button onclick="startNextScene()">Continue</button>
+    </div>
   </div>
 
   <script>
-    document.getElementById("playButton").addEventListener("click", function() {
+    const packedItems = new Set();
+
+    document.getElementById("playButton").addEventListener("click", function () {
       document.querySelector(".menu").style.display = "none";
       document.getElementById("gameArea").style.display = "block";
-      console.log("Game started!");
     });
 
-    document.getElementById("settingsButton").addEventListener("click", function() {
+    document.getElementById("settingsButton").addEventListener("click", function () {
       alert("Settings menu coming soon!");
     });
 
-    document.getElementById("creditsButton").addEventListener("click", function() {
+    document.getElementById("creditsButton").addEventListener("click", function () {
       alert("Created by Nova. Trap vibes incoming.");
     });
+
+    function packItem(item) {
+      packedItems.add(item);
+      document.querySelector(`.item[onclick="packItem('${item}')"]`).style.display = "none";
+      document.getElementById("dialogue").innerText = `${item.charAt(0).toUpperCase() + item.slice(1)} packed.`;
+
+      if (packedItems.size === 4) {
+        setTimeout(() => {
+          document.getElementById("scene1").style.display = "none";
+          document.getElementById("scene2").style.display = "block";
+        }, 1500);
+      }
+    }
+
+    function startNextScene() {
+      alert("Next scene coming soon...");
+      // Scene 3: Arrival at EchoNova Systems will go here
+    }
   </script>
 </body>
 </html>
