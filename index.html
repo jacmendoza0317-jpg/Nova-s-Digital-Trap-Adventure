@@ -137,6 +137,7 @@
     document.getElementById("playButton").addEventListener("click", function () {
       document.querySelector(".menu").style.display = "none";
       document.getElementById("gameArea").style.display = "block";
+      document.getElementById("scene1").style.display = "block";
     });
 
     document.getElementById("settingsButton").addEventListener("click", function () {
@@ -170,23 +171,23 @@
       }, 3000);
     }
 
-// Puzzle 1: Exit the bus
-document.getElementById("novaDot1").addEventListener("dragend", function(e) {
-  const dot = e.target.getBoundingClientRect();
-  const exit = document.getElementById("exitZone1").getBoundingClientRect();
+    // Puzzle 1: Exit the bus
+    document.getElementById("novaDot1").addEventListener("dragend", function(e) {
+      const dot = e.target.getBoundingClientRect();
+      const exit = document.getElementById("exitZone1").getBoundingClientRect();
 
-  if (
-    dot.left > exit.left &&
-    dot.right < exit.right &&
-    dot.top > exit.top &&
-    dot.bottom < exit.bottom
-  ) {
-    document.getElementById("puzzle1").style.display = "none";
-    document.getElementById("puzzle2").style.display = "block";
-  }
-});
+      if (
+        dot.left > exit.left &&
+        dot.right < exit.right &&
+        dot.top > exit.top &&
+        dot.bottom < exit.bottom
+      ) {
+        document.getElementById("puzzle1").style.display = "none";
+        document.getElementById("puzzle2").style.display = "block";
+      }
+    });
 
-// Puzzle 2: Go upstairs
+   // Puzzle 2: Go upstairs
 document.getElementById("novaDot2").addEventListener("dragend", function(e) {
   const dot = e.target.getBoundingClientRect();
   const exit = document.getElementById("exitZone2").getBoundingClientRect();
@@ -202,10 +203,9 @@ document.getElementById("novaDot2").addEventListener("dragend", function(e) {
   }
 });
 
-// Puzzle 3: Choose a seat
+    // Puzzle 3: Choose a seat
 function sitDown(dot) {
   dot.style.background = "#ff4c4c";
   alert("Nova sits down. The presentation begins...");
   // You can trigger Scene 4 here if you want to continue the story
 }
-       
