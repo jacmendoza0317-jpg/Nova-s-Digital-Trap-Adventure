@@ -16,19 +16,9 @@
       color: #ff4c4c;
       text-shadow: 0 0 10px #ff4c4c;
     }
-    button {
-      margin-top: 50px;
-      padding: 15px 30px;
+    p {
       font-size: 20px;
-      background-color: #333;
-      color: #fff;
-      border: 2px solid #ff4c4c;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background-color: #ff4c4c;
-      color: #000;
+      margin-top: 30px;
     }
     audio {
       display: none;
@@ -37,18 +27,21 @@
 </head>
 <body>
   <h1>Nova's Digital Trap</h1>
-  <button onclick="startGame()">Play</button>
+  <p>Note: Press <strong>F</strong> to start background music</p>
 
   <!-- Background Music -->
- <audio controls>
-  <source src="nostalgic-background351782.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+  <audio id="trapTrack" loop>
+    <source src="nostalgic-background351782.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script>
-    function startGame() {
-      alert("Game is starting...");
-    }
+    document.addEventListener("keydown", function(event) {
+      if (event.key.toLowerCase() === "f") {
+        const audio = document.getElementById("trapTrack");
+        audio.play();
+      }
+    });
   </script>
 </body>
 </html>
