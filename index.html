@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Nova's Digital Trap</title>
   <style>
     body {
@@ -10,42 +11,71 @@
       color: #ccc;
       text-align: center;
     }
+
     h1 {
       margin-top: 100px;
       font-size: 48px;
       color: #ff4c4c;
       text-shadow: 0 0 10px #ff4c4c;
     }
-    p {
-      font-size: 20px;
-      margin-top: 30px;
+
+    .menu {
+      margin-top: 50px;
     }
-    audio {
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 15px 30px;
+      font-size: 24px;
+      background-color: #ff4c4c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff4c4c;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff1c1c;
+    }
+
+    #gameArea {
       display: none;
+      margin-top: 50px;
+      font-size: 24px;
+      color: #00ffcc;
     }
   </style>
 </head>
 <body>
   <h1>Nova's Digital Trap</h1>
-  <p>Note: Press <strong>F</strong> to start background music</p>
 
-  <!-- 🔊 Audio element with correct filename -->
-  <audio id="trapTrack" loop>
-    <source src="nostalgic-background351782.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+  <div class="menu">
+    <button id="playButton">Play</button>
+    <button id="settingsButton">Settings</button>
+    <button id="creditsButton">Credits</button>
+  </div>
+
+  <div id="gameArea">
+    <p>🎮 Game is now starting... (placeholder)</p>
+    <!-- You’ll build your gameplay here -->
+  </div>
 
   <script>
-    document.addEventListener("keydown", function(event) {
-      console.log("Key pressed:", event.key); // Debugging line
-      if (event.key.toLowerCase() === "f") {
-        const audio = document.getElementById("trapTrack");
-        audio.play().then(() => {
-          console.log("Audio started");
-        }).catch(err => {
-          console.log("Playback failed:", err);
-        });
-      }
+    document.getElementById("playButton").addEventListener("click", function() {
+      document.querySelector(".menu").style.display = "none";
+      document.getElementById("gameArea").style.display = "block";
+      console.log("Game started!");
+    });
+
+    document.getElementById("settingsButton").addEventListener("click", function() {
+      alert("Settings menu coming soon!");
+    });
+
+    document.getElementById("creditsButton").addEventListener("click", function() {
+      alert("Created by Nova. Trap vibes incoming.");
     });
   </script>
 </body>
