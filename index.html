@@ -92,6 +92,43 @@
       <p><strong>Nova (thinking):</strong> EchoNova? Never heard of it. Sounds sketchy.</p>
       <button onclick="startNextScene()">Continue</button>
     </div>
+
+    <!-- Scene 3: Transition + Puzzles -->
+    <div id="scene3" class="scene" style="display:none;">
+      <!-- Fade to black -->
+      <div id="fadeScene" style="position:fixed; top:0; left:0; width:100%; height:100%; background:black; color:white; font-size:32px; text-align:center; padding-top:200px;">
+        A few hours later...
+      </div>
+
+      <!-- Puzzle 1: Exit the Bus -->
+      <div id="puzzle1" style="display:none; padding-top:100px;">
+        <h2>Drag Nova to the exit</h2>
+        <div id="busArea" style="position:relative; width:400px; height:300px; margin:auto; background:#222; border:2px solid #ff4c4c;">
+          <div id="novaDot1" draggable="true" style="width:20px; height:20px; background:#ff4c4c; border-radius:50%; position:absolute; top:250px; left:50px;"></div>
+          <div id="exitZone1" style="position:absolute; top:10px; left:300px; width:80px; height:40px; background:#00ffcc; color:#000; line-height:40px;">Exit</div>
+        </div>
+      </div>
+
+      <!-- Puzzle 2: Go Upstairs -->
+      <div id="puzzle2" style="display:none; padding-top:100px;">
+        <h2>Drag Nova up the stairs</h2>
+        <div id="stairsArea" style="position:relative; width:200px; height:300px; margin:auto; background:#111; border:2px solid #ff4c4c;">
+          <div id="novaDot2" draggable="true" style="width:20px; height:20px; background:#ff4c4c; border-radius:50%; position:absolute; top:250px; left:90px;"></div>
+          <div id="exitZone2" style="position:absolute; top:10px; left:80px; width:40px; height:40px; background:#00ffcc; color:#000; line-height:40px;">Top</div>
+        </div>
+      </div>
+
+      <!-- Puzzle 3: Choose a Seat -->
+      <div id="puzzle3" style="display:none; padding-top:100px;">
+        <h2>Choose a seat</h2>
+        <p>Click any dot to sit down</p>
+        <div id="seatingArea" style="display:flex; justify-content:center; gap:20px;">
+          <div class="seatDot" onclick="sitDown(this)" style="width:20px; height:20px; background:#00ffcc; border-radius:50%;"></div>
+          <div class="seatDot" onclick="sitDown(this)" style="width:20px; height:20px; background:#00ffcc; border-radius:50%;"></div>
+          <div class="seatDot" onclick="sitDown(this)" style="width:20px; height:20px; background:#00ffcc; border-radius:50%;"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -124,9 +161,51 @@
     }
 
     function startNextScene() {
-      alert("Next scene coming soon...");
-      // Scene 3: Arrival at EchoNova Systems will go here
+      document.getElementById("scene2").style.display = "none";
+      document.getElementById("scene3").style.display = "block";
+
+      setTimeout(() => {
+        document.getElementById("fadeScene").style.display = "none";
+        document.getElementById("puzzle1").style.display = "block";
+      }, 3000);
     }
-  </script>
-</body>
-</html>
+
+// Puzzle 1: Exit the bus
+document.getElementById("novaDot1").addEventListener("dragend", function(e) {
+  const dot = e.target.getBoundingClientRect();
+  const exit = document.getElementById("exitZone1").getBoundingClientRect();
+
+  if (
+    dot.left > exit.left &&
+    dot.right < exit.right &&
+    dot.top > exit.top &&
+    dot.bottom < exit.bottom
+  ) {
+    document.getElementById("puzzle1").style.display = "none";
+    document.getElementById("puzzle2").style.display = "block";
+  }
+});
+
+// Puzzle 2: Go upstairs
+document.getElementById("novaDot2").addEventListener("dragend", function(e) {
+  const dot = e.target.getBoundingClientRect();
+  const exit = document.getElementById("exitZone2").getBoundingClientRect();
+
+  if (
+    dot.left > exit.left &&
+    dot.right < exit.right &&
+    dot.top > exit.top &&
+    dot.bottom < exit.bottom
+  ) {
+    document.getElementById("puzzle2").style.display = "none";
+    document.getElementById("puzzle3").style.display = "block";
+  }
+});
+
+// Puzzle 3: Choose a seat
+function sitDown(dot) {
+  dot.style.background = "#ff4c4c";
+  alert("Nova sits down. The presentation begins...");
+  // You can trigger Scene 4 here if you want to continue the story
+}
+       
