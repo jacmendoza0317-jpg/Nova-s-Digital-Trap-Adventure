@@ -147,6 +147,9 @@
 <div id="chapterComplete" style="display:none; padding:50px; text-align:center;">
   <h2 style="color:#00ffcc;">Chapter 1 Completed</h2>
   <p style="font-size:20px; color:#ff4c4c;">Congrats you know how to read!</p>
+  <button onclick="returnToMenu()" style="margin-top:20px; padding:10px 20px; background:#00ffcc; border:none; cursor:pointer; font-weight:bold;">
+    Back to Menu
+  </button>
 </div>
 
 <script>
@@ -364,4 +367,48 @@ style.innerHTML = `
   }
 `;
 document.head.appendChild(style);
+
+//Return to Menu Button 
+function returnToMenu() {
+  // Hide all scenes
+  document.getElementById("chapterComplete").style.display = "none";
+  document.getElementById("novaReflection").style.display = "none";
+  document.getElementById("presentationScene").style.display = "none";
+  document.getElementById("scene1").style.display = "none";
+  document.getElementById("scene2").style.display = "none";
+  document.getElementById("scene3").style.display = "none";
+
+  // Show menu
+  document.querySelector(".menu").style.display = "block";
+  document.getElementById("gameArea").style.display = "none";
+
+  // Reset packed items
+  packedItems.clear();
+  document.querySelectorAll(".item").forEach(item => {
+    item.style.display = "block";
+  });
+  document.getElementById("dialogue").innerText = "";
+
+  // Reset puzzles
+  document.getElementById("puzzle1").style.display = "none";
+  document.getElementById("puzzle2").style.display = "none";
+  document.getElementById("puzzle3").style.display = "none";
+  document.getElementById("fadeScene").style.display = "block";
+
+  // Reset presentation and reflection content
+  document.getElementById("presentationText").innerHTML = "";
+  document.getElementById("reflectionText").innerHTML = "";
+
+  // Reset Nova dots
+  document.getElementById("novaDot1").style.top = "250px";
+  document.getElementById("novaDot1").style.left = "50px";
+  document.getElementById("novaDot2").style.top = "250px";
+  document.getElementById("novaDot2").style.left = "90px";
+
+  // Reset seat dots
+  document.querySelectorAll(".seatDot").forEach(dot => {
+    dot.style.background = "#00ffcc";
+  });
+}
+
 </script>
