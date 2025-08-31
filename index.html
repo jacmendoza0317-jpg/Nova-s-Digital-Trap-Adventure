@@ -100,112 +100,268 @@
         A few hours later...
       </div>
 
-      <!-- Puzzle 1: Exit the Bus -->
-      <div id="puzzle1" style="display:none; padding-top:100px;">
-        <h2>Drag Nova to the exit</h2>
-        <div id="busArea" style="position:relative; width:400px; height:300px; margin:auto; background:#222; border:2px solid #ff4c4c;">
-          <div id="novaDot1" draggable="true" style="width:20px; height:20px; background:#ff4c4c; border-radius:50%; position:absolute; top:250px; left:50px;"></div>
-          <div id="exitZone1" style="position:absolute; top:10px; left:300px; width:80px; height:40px; background:#00ffcc; color:#000; line-height:40px;">Exit</div>
-        </div>
-      </div>
-
-      <!-- Puzzle 2: Go Upstairs -->
-      <div id="puzzle2" style="display:none; padding-top:100px;">
-        <h2>Drag Nova up the stairs</h2>
-        <div id="stairsArea" style="position:relative; width:200px; height:300px; margin:auto; background:#111; border:2px solid #ff4c4c;">
-          <div id="novaDot2" draggable="true" style="width:20px; height:20px; background:#ff4c4c; border-radius:50%; position:absolute; top:250px; left:90px;"></div>
-          <div id="exitZone2" style="position:absolute; top:10px; left:80px; width:40px; height:40px; background:#00ffcc; color:#000; line-height:40px;">Top</div>
-        </div>
-      </div>
-
-      <!-- Puzzle 3: Choose a Seat -->
-      <div id="puzzle3" style="display:none; padding-top:100px;">
-        <h2>Choose a seat</h2>
-        <p>Click any dot to sit down</p>
-        <div id="seatingArea" style="display:flex; justify-content:center; gap:20px;">
-          <div class="seatDot" onclick="sitDown(this)" style="width:20px; height:20px; background:#00ffcc; border-radius:50%;"></div>
-          <div class="seatDot" onclick="sitDown(this)" style="width:20px; height:20px; background:#00ffcc; border-radius:50%;"></div>
-          <div class="seatDot" onclick="sitDown(this)" style="width:20px; height:20px; background:#00ffcc; border-radius:50%;"></div>
-        </div>
-      </div>
-    </div>
+<!-- Puzzle 1: Exit the Bus -->
+<div id="puzzle1" style="display:none; padding-top:100px;">
+  <h2>Drag Nova to the exit</h2>
+  <div id="busArea" style="position:relative; width:400px; height:300px; margin:auto; background:#222; border:2px solid #ff4c4c;">
+    <div id="novaDot1" style="width:20px; height:20px; background:#ff4c4c; border-radius:50%; position:absolute; top:250px; left:50px;"></div>
+    <div id="exitZone1" style="position:absolute; top:10px; left:300px; width:80px; height:40px; background:#00ffcc; color:#000; line-height:40px;">Exit</div>
   </div>
+</div>
 
-  <script>
-    const packedItems = new Set();
+<!-- Puzzle 2: Go Upstairs -->
+<div id="puzzle2" style="display:none; padding-top:100px;">
+  <h2>Drag Nova up the stairs</h2>
+  <div id="stairsArea" style="position:relative; width:200px; height:300px; margin:auto; background:#111; border:2px solid #ff4c4c;">
+    <div id="novaDot2" style="width:20px; height:20px; background:#ff4c4c; border-radius:50%; position:absolute; top:250px; left:90px;"></div>
+    <div id="exitZone2" style="position:absolute; top:10px; left:80px; width:40px; height:40px; background:#00ffcc; color:#000; line-height:40px;">Top</div>
+  </div>
+</div>
 
-    document.getElementById("playButton").addEventListener("click", function () {
-      document.querySelector(".menu").style.display = "none";
-      document.getElementById("gameArea").style.display = "block";
-      document.getElementById("scene1").style.display = "block";
-    });
+<!-- Puzzle 3: Choose a Seat -->
+<div id="puzzle3" style="display:none; padding-top:100px;">
+  <h2>Choose a seat</h2>
+  <p>Click any dot to sit down</p>
+  <div id="seatingArea" style="display:flex; justify-content:center; gap:20px;">
+    <div class="seatDot" onclick="sitDown(this)" style="width:20px; height:20px; background:#00ffcc; border-radius:50%;"></div>
+    <div class="seatDot" onclick="sitDown(this)" style="width:20px; height:20px; background:#00ffcc; border-radius:50%;"></div>
+    <div class="seatDot" onclick="sitDown(this)" style="width:20px; height:20px; background:#00ffcc; border-radius:50%;"></div>
+  </div>
+</div>
+</div>
+</div>
 
-    document.getElementById("settingsButton").addEventListener("click", function () {
-      alert("Settings menu coming soon!");
-    });
+<!-- Scene 4: Presentation -->
+<div id="presentationScene" style="display:none; padding:50px; text-align:center;">
+  <h2>The Presentation Begins</h2>
+  <div id="presentationText" style="max-width:600px; margin:auto;"></div>
+</div>
 
-    document.getElementById("creditsButton").addEventListener("click", function () {
-      alert("Created by Nova. Trap vibes incoming.");
-    });
+<!-- Scene 5: Nova's Reflection -->
+<div id="novaReflection" style="display:none; padding:50px; text-align:center;">
+  <h2>Nova's Thoughts</h2>
+  <div id="reflectionText" style="max-width:600px; margin:auto; font-style:italic; color:#ccc;"></div>
+</div>
 
-    function packItem(item) {
-      packedItems.add(item);
-      document.querySelector(`.item[onclick="packItem('${item}')"]`).style.display = "none";
-      document.getElementById("dialogue").innerText = `${item.charAt(0).toUpperCase() + item.slice(1)} packed.`;
+<!-- Scene 6: Chapter Completion -->
+<div id="chapterComplete" style="display:none; padding:50px; text-align:center;">
+  <h2 style="color:#00ffcc;">Chapter 1 Completed</h2>
+  <p style="font-size:20px; color:#ff4c4c;">Congrats you know how to read!</p>
+</div>
 
-      if (packedItems.size === 4) {
-        setTimeout(() => {
-          document.getElementById("scene1").style.display = "none";
-          document.getElementById("scene2").style.display = "block";
-        }, 1500);
-      }
-    }
+<script>
+  const packedItems = new Set();
 
-    function startNextScene() {
-      document.getElementById("scene2").style.display = "none";
-      document.getElementById("scene3").style.display = "block";
+  document.getElementById("playButton").addEventListener("click", function () {
+    document.querySelector(".menu").style.display = "none";
+    document.getElementById("gameArea").style.display = "block";
+    document.getElementById("scene1").style.display = "block";
+  });
 
+  document.getElementById("settingsButton").addEventListener("click", function () {
+    alert("Settings menu coming soon!");
+  });
+
+  document.getElementById("creditsButton").addEventListener("click", function () {
+    alert("Created by Nova. Trap vibes incoming.");
+  });
+
+  function packItem(item) {
+    packedItems.add(item);
+    document.querySelector(`.item[onclick="packItem('${item}')"]`).style.display = "none";
+    document.getElementById("dialogue").innerText = `${item.charAt(0).toUpperCase() + item.slice(1)} packed.`;
+
+    if (packedItems.size === 4) {
       setTimeout(() => {
-        document.getElementById("fadeScene").style.display = "none";
-        document.getElementById("puzzle1").style.display = "block";
-      }, 3000);
+        document.getElementById("scene1").style.display = "none";
+        document.getElementById("scene2").style.display = "block";
+      }, 1500);
     }
+  }
 
-    // Puzzle 1: Exit the bus
-    document.getElementById("novaDot1").addEventListener("dragend", function(e) {
-      const dot = e.target.getBoundingClientRect();
-      const exit = document.getElementById("exitZone1").getBoundingClientRect();
+  function startNextScene() {
+    document.getElementById("scene2").style.display = "none";
+    document.getElementById("scene3").style.display = "block";
 
-      if (
-        dot.left > exit.left &&
-        dot.right < exit.right &&
-        dot.top > exit.top &&
-        dot.bottom < exit.bottom
-      ) {
-        document.getElementById("puzzle1").style.display = "none";
-        document.getElementById("puzzle2").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("fadeScene").style.display = "none";
+      document.getElementById("puzzle1").style.display = "block";
+    }, 3000);
+  }
+
+  // Puzzle 1 and 2 logic (manual drag with center-point collision)
+  function enableDrag(dotId, exitId, nextPuzzleId, currentPuzzleId) {
+    const dot = document.getElementById(dotId);
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    dot.addEventListener("mousedown", function (e) {
+      isDragging = true;
+      const rect = dot.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+    });
+
+    document.addEventListener("mousemove", function (e) {
+      if (isDragging) {
+        const parentRect = dot.parentElement.getBoundingClientRect();
+        const x = e.clientX - parentRect.left - offsetX;
+        const y = e.clientY - parentRect.top - offsetY;
+
+        dot.style.left = `${x}px`;
+        dot.style.top = `${y}px`;
       }
     });
 
-   // Puzzle 2: Go upstairs
-document.getElementById("novaDot2").addEventListener("dragend", function(e) {
-  const dot = e.target.getBoundingClientRect();
-  const exit = document.getElementById("exitZone2").getBoundingClientRect();
+    document.addEventListener("mouseup", function () {
+      if (isDragging) {
+        isDragging = false;
+        const dotRect = dot.getBoundingClientRect();
+        const exitRect = document.getElementById(exitId).getBoundingClientRect();
 
-  if (
-    dot.left > exit.left &&
-    dot.right < exit.right &&
-    dot.top > exit.top &&
-    dot.bottom < exit.bottom
-  ) {
-    document.getElementById("puzzle2").style.display = "none";
-    document.getElementById("puzzle3").style.display = "block";
+        const dotCenterX = dotRect.left + dotRect.width / 2;
+        const dotCenterY = dotRect.top + dotRect.height / 2;
+
+        if (
+          dotCenterX > exitRect.left &&
+          dotCenterX < exitRect.right &&
+          dotCenterY > exitRect.top &&
+          dotCenterY < exitRect.bottom
+        ) {
+          document.getElementById(currentPuzzleId).style.display = "none";
+          document.getElementById(nextPuzzleId).style.display = "block";
+        }
+      }
+    });
   }
-});
 
-    // Puzzle 3: Choose a seat
-function sitDown(dot) {
+  document.addEventListener("DOMContentLoaded", function () {
+    enableDrag("novaDot1", "exitZone1", "puzzle2", "puzzle1");
+    enableDrag("novaDot2", "exitZone2", "puzzle3", "puzzle2");
+  });
+
+  // Puzzle 3: Choose a seat
+  function sitDown(dot) {
   dot.style.background = "#ff4c4c";
-  alert("Nova sits down. The presentation begins...");
-  // You can trigger Scene 4 here if you want to continue the story
+  document.getElementById("puzzle3").style.display = "none";
+  document.getElementById("presentationScene").style.display = "block";
+  startPresentation();
 }
+
+const dialogueChunks = [
+  "Please remain seated. The presentation will begin shortly. This is a field trip for all.",
+  "You packed your items. You followed the signs. You boarded the transport.",
+  "Some of you may be wondering what this is all for. Some of you may not care. But all of you will learn.",
+  "What you saw on the way here was only the surface. Beneath it lies a system. A memory.",
+  "We call it Novato. Not a prototype. Not a predecessor.",
+  "Novato is a remnant. A signal. A warning.",
+  "It was buried for a reason. And now, it’s waking up. You will be the first to see it stir.",
+  "In Chapter 2, you will begin your descent. You will not be alone. You will not be safe."
+];
+
+function startPresentation() {
+  const container = document.getElementById("presentationText");
+  container.innerHTML = ""; // Clear previous content
+
+  let i = 0;
+
+  const nextBtn = document.createElement("button");
+  nextBtn.innerText = "Next";
+  nextBtn.style.marginTop = "20px";
+  nextBtn.style.padding = "10px 20px";
+  nextBtn.style.background = "#00ffcc";
+  nextBtn.style.border = "none";
+  nextBtn.style.cursor = "pointer";
+  nextBtn.style.fontWeight = "bold";
+
+  const dialogueBox = document.createElement("div");
+  dialogueBox.className = "dialogueBox";
+  container.appendChild(dialogueBox);
+  container.appendChild(nextBtn);
+
+  function showNextLine() {
+    if (i < dialogueChunks.length) {
+      dialogueBox.innerText = dialogueChunks[i];
+      i++;
+    } else {
+      nextBtn.innerText = "Continue to Nova's Thoughts";
+      nextBtn.onclick = () => {
+        document.getElementById("presentationScene").style.display = "none";
+        document.getElementById("novaReflection").style.display = "block";
+        startReflection();
+      };
+    }
+  }
+
+  nextBtn.onclick = showNextLine;
+  showNextLine(); // Show first line
+}
+
+const novaThoughts = [
+  "What was that?",
+  "Novato... I've never heard that name before.",
+  "Why do I feel like this trip isn’t what they said it would be?",
+  "Something’s off. The way they spoke—it felt rehearsed. Like we were being prepared for something.",
+  "I need to stay sharp. I need to find out what Novato really is.",
+  "Whatever’s coming next... I’m not sure I’m ready. But I have to be."
+];
+
+function startReflection() {
+  const container = document.getElementById("reflectionText");
+  container.innerHTML = ""; // Clear previous content
+
+  let i = 0;
+
+  const nextBtn = document.createElement("button");
+  nextBtn.innerText = "Next Thought";
+  nextBtn.style.marginTop = "20px";
+  nextBtn.style.padding = "10px 20px";
+  nextBtn.style.background = "#00ffcc";
+  nextBtn.style.border = "none";
+  nextBtn.style.cursor = "pointer";
+  nextBtn.style.fontWeight = "bold";
+
+  const thoughtBox = document.createElement("div");
+  thoughtBox.className = "dialogueBox";
+  container.appendChild(thoughtBox);
+  container.appendChild(nextBtn);
+
+  function showNextThought() {
+    if (i < novaThoughts.length) {
+      thoughtBox.innerText = novaThoughts[i];
+      i++;
+    } else {
+      nextBtn.innerText = "Finish Chapter";
+      nextBtn.onclick = () => {
+        document.getElementById("novaReflection").style.display = "none";
+        document.getElementById("chapterComplete").style.display = "block";
+      };
+    }
+  }
+
+  nextBtn.onclick = showNextThought;
+  showNextThought(); // Show first thought
+}
+
+// Add styling for dialogue boxes
+const style = document.createElement("style");
+style.innerHTML = `
+  .dialogueBox {
+    background: #111;
+    color: #ccc;
+    padding: 20px;
+    margin: 15px auto;
+    max-width: 600px;
+    border: 1px solid #444;
+    font-family: monospace;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+`;
+document.head.appendChild(style);
+</script>
